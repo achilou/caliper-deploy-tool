@@ -1,0 +1,90 @@
+# version: '3'  
+# orderer { version, network, mountpath}
+# services:
+  {{name}} :
+      image: hyperledger/fabric-orderer:{{orderer.version}}
+      dns: {{orderer.dnsserver}}
+      container_name: {{name}}
+      environment:
+      - GODEBUG=netdns=go
+      - FABRIC_LOGGING_SPEC=grpc=info:info
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT={{orderer.port}}
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt]
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+      working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+      command: orderer
+      ports:
+      - {{orderer.port}}:{{orderer.port}}
+      volumes:
+      - {{orderer.mountpath}}/:/etc/hyperledger/configtx
+      - {{orderer.mountpath}}/crypto-config/ordererOrganizations/example.com/orderers/{{name}}/:/etc/hyperledger/msp/orderer
+
+
+  # orderer1.example.com :
+  #     image: hyperledger/fabric-orderer:{{orderer.version}}     
+  #     dns: {{orderer.dnsserver}}
+  #     container_name: orderer1.example.com
+  #     environment:
+  #     - GODEBUG=netdns=go
+  #     - FABRIC_LOGGING_SPEC=grpc=info:info
+  #     - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+  #   #   - ORDERER_GENERAL_LISTENPORT=8050
+  #     - ORDERER_GENERAL_GENESISMETHOD=file
+  #     - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+  #     - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+  #     - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+  #     - ORDERER_GENERAL_TLS_ENABLED=true
+  #     - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+  #     - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+  #     - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt]
+  #     - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+  #     - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+  #     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+  #     command: orderer
+  #     ports:
+  #     - 8050:7050
+  #     volumes:
+  #     - {{orderer.mountpath}}/:/etc/hyperledger/configtx
+  #     - {{orderer.mountpath}}/crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/:/etc/hyperledger/msp/orderer
+
+
+  # orderer2.example.com:
+  #     image: hyperledger/fabric-orderer:{{orderer.version}}
+  #     dns: {{orderer.dnsserver}}
+  #     container_name: orderer2.example.com
+  #     environment:
+  #     - GODEBUG=netdns=go
+  #     - FABRIC_LOGGING_SPEC=grpc=info:info
+  #     - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+  #   #   - ORDERER_GENERAL_LISTENPORT=9050
+  #     - ORDERER_GENERAL_GENESISMETHOD=file
+  #     - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/genesis.block
+  #     - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+  #     - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+  #     - ORDERER_GENERAL_TLS_ENABLED=true
+  #     - ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+  #     - ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+  #     - ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/msp/orderer/tls/ca.crt]
+  #     - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/etc/hyperledger/msp/orderer/tls/server.crt
+  #     - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/etc/hyperledger/msp/orderer/tls/server.key
+  #     working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+  #     command: orderer
+  #     ports:
+  #     - 9050:7050
+  #     volumes:
+  #     - {{orderer.mountpath}}/:/etc/hyperledger/configtx
+  #     - {{orderer.mountpath}}/crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/:/etc/hyperledger/msp/orderer
+
+# networks:
+#     {{orderer.network}}:
+#         external:
+#             name: {{orderer.network}}
