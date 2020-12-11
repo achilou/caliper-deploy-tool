@@ -227,7 +227,7 @@ common: &common											# fabric节点的公共配置
   network: ansible_default								# docker-compose文件使用的网络
   mountpath: /root/ansible/nfs							# fabric网络运行节点的挂载点，用于从CDT节点共享fabric MSP 证书
   dnsserver: 10.10.28.116								# CDT节点IP，运行coredns服务器
-	
+
 client:													# caliper 客户端配置
   cryptopath: benchmarks/config_raft					# 客户端证书路径前缀
   usecmd: false											# 客户端是否使用启动和结束命令，不支持修改
