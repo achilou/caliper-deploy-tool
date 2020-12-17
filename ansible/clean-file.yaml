@@ -1,5 +1,5 @@
 ---
-- hosts: caliper
+- hosts: cdt
   remote_user: root
   tasks:
   - name: rm -rf /root/ansible/images
