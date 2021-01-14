@@ -22,4 +22,4 @@
     shell: docker load --input {{dest_dir}}/ca-docker.tar
     
   - name: docker load [ccenv] /root/ansible/images
-    shell: docker load --input {{dest_dir}}/cccenv-docker.tar
+    shell: docker load --input {{dest_dir}}/ccenv-docker.tar
