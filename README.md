@@ -76,14 +76,9 @@
      以下所有操作都在主机A上执行, 工作目录为caliper-deploy-tool, 需要关闭systemd-redsolved服务：
 
       ```shell
-      # ensure 127.0.0.1 as host A's dns
-      # In ubuntu, you can edit `/etc/resolv.conf` to set "nameserver" to "127.0.0.1.53"
-
       # setup enviroments: 
       # 1. build cdt docker
       # 2. stop systemd-resolved and release dns port 53
-      # ensure 127.0.0.1 as host A's dns
-      # In ubuntu, you can edit `/etc/resolv.conf` to set "nameserver" to "127.0.0.1.53"
       # 3. boot coredns server, 
       # 4. boot nfs server using docker 
       make setup-cdt
